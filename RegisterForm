@@ -1,0 +1,70 @@
+import React, {useState} from "react";
+
+export default function Apps() {
+    const [user, setUser] = useState({})
+
+    const confirmUserData = (data) => setUser(user);
+
+    return(
+        <>
+        <main>
+            <RegisterForm onSubmit={confirmUserData} />
+        </main>
+            {/*<ConfirmDialog />*/}
+        </>
+    )
+}
+
+function RegisterForm({ onSubmit }) {
+    const [user, setUserData] = useState({email: '@fff', password: '1232'})
+
+    const setUserEmail = (e) => {
+        const email = e.target.value;
+        setUserData({...user, email});
+    }
+
+    const setUserPassword = (e) => {
+        const password = e.target.value;
+        setUserData({...user, password});
+    }
+
+    const handleFormSubmit = () => {
+        const {email, password} = user;
+        onSubmit(user);
+    }
+
+    return(
+        <>
+        <h1>Test</h1>
+            <form onSubmit={handleFormSubmit}>
+                <AppInput
+                    label="label"
+                    name="email"
+                    type="email"
+                    value={user.email}
+                    onChange={setUserEmail}
+                    required={true}
+                />
+
+                <AppInput
+                    label="psw"
+                    name="password"
+                    type="password"
+                    value={user.password}
+                    onChange={setUserPassword}
+                    required={true}
+                />
+                <button>Submit</button>
+            </form>
+        </>
+    )
+}
+
+function AppInput({label, name, ...rest}) {
+    return(
+        <div>
+            <label htmlFor={name}>{label}</label>
+            <input id={name} {...rest} />
+        </div>
+    )
+}
